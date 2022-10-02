@@ -1,0 +1,12 @@
+---
+title: "Tabulating DuBois"
+---
+
+This is a submission for RStudio/Posit Table Contest 2022.
+
+:::{.callout-info}
+# Language Notice
+Please note that the data used on this website was originally presented by DuBois in 1900, which means it includes the use of now-offensive terms such as "colored" and "negroes" to make reference to black Americans. These terms were used by many of the participants of the [2021 DuBois Challenge](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-02-16/readme.md) as the goal was to recreate DuBois' original plates as accurately as possible using modern tools. 
+
+The goal of "Tabulating DuBois" is not to recreate, but be inspired by. As the data is now presented in a new context and in a new medium, it did not feel appropriate to use these outdated terms. Black Americans are now referred to using the terms "Black" or, where relevant, "Black Americans" in the tables and text. DuBois' original language can still be seen in the images of the plates shown on this website, which are displayed unaltered and uncensored.
+:::

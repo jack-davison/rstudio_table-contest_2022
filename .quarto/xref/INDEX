@@ -1,0 +1,29 @@
+{
+  "docs/georgia_pop.qmd": {
+    "georgia_pop.html": "6f5fa310"
+  },
+  "about.qmd": {
+    "about.html": "661a5027"
+  },
+  "index.qmd": {
+    "index.html": "67d2dd1c"
+  },
+  "docs/gallery.qmd": {
+    "gallery.html": "9d0db3c1"
+  },
+  "docs/challenges/georgia_pop.qmd": {
+    "georgia_pop.html": "48cfd814"
+  },
+  "docs/challenges/conjugal.qmd": {
+    "conjugal.html": "5b0697b7"
+  },
+  "docs/challenges/occupation.qmd": {
+    "occupation.html": "aa3a61dc"
+  },
+  "docs/challenges/freed_slaves.qmd": {
+    "freed_slaves.html": "cc397044"
+  },
+  "docs/challenges/city_rural.qmd": {
+    "city_rural.html": "e4607ccf"
+  }
+}

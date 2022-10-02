@@ -1,0 +1,99 @@
+---
+title: "Comparative Increase of White and Black Population in Georgia."
+---
+
+This plate shows the comparative increase of the white and black population of Georgia. It is interesting in that it is quite a simple time series, but the time axis is shown on the y-axis rather than the more typical x-axis.
+
+To recreate the spirit of this visualisation, I created plots for each row which showed a dot for each of the two races shown in DuBois' original graph. When viewed as a whole, the image of the original plate is revealed.
+
+This was one of the easiest panels to translate to `{gt}`. In place of a legend, I added the unicode characters for a filled and empty bullet to the column labels.
+
+## Commentary
+
+::: {.panel-tabset}
+
+# Table
+
+```{r, ref.label=c('georgiaPopCode')}
+#| label: georgiaPopTbl
+#| echo: false
+```
+
+# Original
+
+![](https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge01/original-plate-07.jpg)
+
+# Code
+
+```{r}
+#| label: georgiaPopCode
+#| eval: false
+library(tidyverse)
+library(gt)
+
+georgia_pop <-
+  readr::read_csv(
+    'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-16/georgia_pop.csv'
+  ) |>
+  arrange(desc(Year)) |>
+  rename(Black = Colored)
+
+plot_dots <- function(data) {
+  labs <- tibble(y = rep("", 3), x = c(0, 50, 100))
+  
+  plt <-
+    data |>
+    ggplot(aes(y = "")) +
+    geom_vline(xintercept = seq(0, 100, 10), color = "red") +
+    theme_void() +
+    expand_limits(x = c(0, 100)) +
+    scale_x_reverse()
+  
+  if (data$Year %in% c(1790, 1890)) {
+    plt <-
+      plt + geom_text(
+        inherit.aes = FALSE,
+        data = labs,
+        aes(x, y, label = x),
+        size = 27.5
+      )
+  }
+  
+  plt +
+    geom_point(aes(x = Black), size = 35) +
+    geom_point(
+      aes(x = White),
+      fill = "white",
+      stroke = 4,
+      shape = 21,
+      size = 35
+    )
+  
+}
+
+plots <- georgia_pop |>
+  group_split(Year) |>
+  map(plot_dots)
+
+georgia_pop |>
+  mutate(dots = NA) |>
+  gt() |>
+  gtExtras::gt_theme_538() |>
+  fmt_percent(Black:White, scale_values = F, decimals = 0) |>
+  tab_header(toupper("Comparative Increase of White and Black Population in Georgia.")) |>
+  tab_options(data_row.padding = 0, heading.align = "center") |>
+  cols_width(dots ~ px(250),
+             Year:White ~ px(80)) |>
+  cols_label(
+    dots = "",
+    Black = html("<div style='font-size:2.5em'>&#8226</div>Black"),
+    White = html("<div style='font-size:2.5em'>&#9702</div>White")
+  ) |>
+  cols_align("center") |>
+  text_transform(cells_body(columns = dots),
+                 function(x) {
+                   ggplot_image(rev(plots), height = px(35), aspect_ratio = 6)
+                 })
+```
+
+:::

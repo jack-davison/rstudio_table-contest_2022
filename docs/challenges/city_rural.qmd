@@ -1,0 +1,89 @@
+---
+title: "Occupations of Black and White Americans in Georgia."
+---
+
+This plate shows the number of black Americans who live in urban and rural environments in 1890. There is almost a order of magnitude more black Americans living in the countryside than there are in cities.
+
+This infographic is unusual in appearance, and [much has been said](https://www.smithsonianmag.com/history/first-time-together-and-color-book-displays-web-du-bois-visionary-infographics-180970826/) about its almost modernist style. While it starts as a regular bar chart with the green line representing large cities, it suddenly juts off at an angle, culminating in an absurdly large spiralling bar. The message I take from this is that the difference between the categories is so stark that it defies the traditional structure of the medium (in this case, the bar chart). This defiance is what I want to carry over to the tabular format.
+
+To express this idea in a `{gt}` table, I've used a pretty typical in-line bar plot, but allowed it to spill over onto rows below. I think this nicely presents the message of "this value is almost comically large compared to the others" nicely. The mathematical transformations to get this result were interesting to write out, and made good use of the lesser known `dplyr::uncount()` function.
+
+::: {.panel-tabset}
+
+# Table
+
+```{r, ref.label=c('cityRuralCode')}
+#| label: cityRuralTbl
+#| echo: false
+```
+
+# Original
+
+![](https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge06/original-plate-11.jpg)
+
+# Code
+
+```{r}
+#| label: cityRuralCode
+#| eval: false
+
+library(tidyverse)
+library(gt)
+
+city_rural <-
+  readr::read_csv(
+    'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-16/city_rural.csv'
+  )
+
+tbl_data <-
+  city_rural |>
+  mutate(
+    Category = fct_inorder(Category),
+    n = Population / 100000,
+    n_ceil = ceiling(n)
+  ) |>
+  arrange(Category) |>
+  uncount(n_ceil) |>
+  mutate(val = if_else(n < 1, n * 100000, 100000)) |>
+  group_by(Category) |>
+  mutate(rn = row_number(),
+         val = if_else(rn == max(rn),
+                       100000 * (n - floor(n)),
+                       val))
+
+plot_bar <- function(data, color) {
+  data |>
+    ggplot(aes(y = "", x = val)) +
+    geom_col(fill = color) +
+    expand_limits(x = 100000) +
+    theme_void()
+}
+
+plots <-
+  tbl_data |>
+  group_by(Category, rn) |>
+  group_split() |>
+  map2(.y = c("#5f7767", "#6276ab", "#e1b323", rep("#b82a40", nrow(tbl_data) -
+                                                     3)),
+       plot_bar)
+
+tbl_data |>
+  mutate(
+    Category = if_else(rn == 1, as.character(Category), ""),
+    Population = if_else(rn == 1, as.character(Population), "")
+  ) |>
+  ungroup() |>
+  select(Category, Population) |>
+  mutate(plots = NA) |>
+  gt() |>
+  gtExtras::gt_theme_538() |>
+  tab_header(html("URBAN AND RURAL POPULATION.<br>1890.")) |>
+  tab_options(heading.align = "center") |>
+  text_transform(cells_body(plots),
+                 function(x) {
+                   ggplot_image(plots, height = px(20), aspect_ratio = 9)
+                 })
+
+```
+
+:::

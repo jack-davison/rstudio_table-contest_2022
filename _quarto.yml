@@ -1,0 +1,29 @@
+project:
+  type: website
+
+website:
+  title: "Tabulating DuBois"
+  navbar:
+    background: "#e5dcce"
+    foreground: "black"
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Tables
+        href: docs/gallery.qmd
+    right:
+      - href: about.qmd
+        text: About
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: false
+
+execute:
+  message: false
+  warning: false
+  echo: true
+  error: false
+  freeze: auto
