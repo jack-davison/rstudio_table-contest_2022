@@ -14,10 +14,18 @@
       subtitle: Original Plate 11
       href: ./challenges/city_rural.qmd
       thumbnail: https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge06/original-plate-11.jpg
+    - title: Furniture
+      subtitle: Original Plate 25
+      href: ./challenges/furniture.qmd
+      thumbnail: https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge07/original-plate-25.jpg      
     - title: Occupations
       subtitle: Original Plate 27
       href: ./challenges/occupation.qmd
-      thumbnail: https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge03/original-plate-27.jpg      
+      thumbnail: https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge03/original-plate-27.jpg
+    - title: Income
+      subtitle: Original Plate 31
+      href: ./challenges/income.qmd
+      thumbnail: https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge05/original-plate-31.jpg
     - title: Freemen & Slaves
       subtitle: Original Plate 51
       href: ./challenges/freed_slaves.qmd

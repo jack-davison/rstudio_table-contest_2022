@@ -34,7 +34,8 @@ conjugal <-
   readr::read_csv(
     'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-16/conjugal.csv'
   ) |> 
-  mutate(Population = str_replace_all(Population, "Negroes", "Black American"))
+  mutate(Population = str_replace_all(Population, "Negroes", "Black America"),
+         Population = factor(Population, c("Germany", "Black America")))
 
 make_bar <- function(data) {
   data |>
@@ -85,7 +86,7 @@ conjugal |>
     "Single" = html("<b style='color:#953e45'>S</b>ingle"),
     "Married" = html("<b style='color:#daac2e'>M</b>arried")
   ) |>
-  # cols_align("center", c("Single", "Married", "Divorced and Widowed")) |>
+  cols_align("left", Population) |>
   text_transform(cells_body(plot),
                  function(x) {
                    ggplot_image(plots, height = px(20), aspect_ratio = 8)

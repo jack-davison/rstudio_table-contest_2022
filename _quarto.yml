@@ -3,18 +3,41 @@ project:
 
 website:
   title: "Tabulating DuBois"
+  body-footer: "A submission for the RStudio/Posit Table Contest 2022."
   navbar:
+    logo: man/logo.png
+    pinned: true
     background: "#e5dcce"
     foreground: "black"
     left:
-      - text: Home
-        href: index.qmd
-      - text: Tables
+      - text: Table Studies
         href: docs/gallery.qmd
+      - sidebar:dubois
     right:
       - href: about.qmd
         text: About
 
+  sidebar:
+    - id: dubois 
+      title: "Articles on DuBois"
+      background: light
+      contents: 
+      - section: "External Links"
+      - text: Data Journalism in the Study of W.E.B. DuBois (Medium)
+        href: https://medium.com/nightingale/data-journalism-in-the-study-of-w-e-b-du-bois-the-negro-problem-part-2-of-4-e5ea9b976adc
+      - text: Retracing his attempt to challenge racism with data (The Guardian)
+        href: https://www.theguardian.com/world/2017/feb/14/web-du-bois-racism-data-paris-african-americans-jobs
+      - text: W.E.B. Du Bois’ Visionary Infographics Come Together for the First Time in Full Color (Smithsonian)
+        href: https://www.smithsonianmag.com/history/first-time-together-and-color-book-displays-web-du-bois-visionary-infographics-180970826/
+      - text: The DuBois Challenge (Nightingale)
+        href: https://nightingaledvs.com/the-dubois-challenge/ 
+        
+    - id: other
+      title: "About"
+      background: light
+      contents:
+      - text: about.qmd
+    
 format:
   html:
     theme: cosmo

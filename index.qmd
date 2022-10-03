@@ -1,10 +1,61 @@
 ---
-title: "Tabulating DuBois"
+pagetitle: "Tabulating DuBois"
 ---
 
-This is a submission for RStudio/Posit Table Contest 2022.
+::: {layout="[[2,2,2.75,2,2]]" layout-valign="bottom"}
+![](https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge01/original-plate-07.jpg)
 
-:::{.callout-info}
+![](https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge02/original-plate-10.jpg)
+
+![](man/dubois_portrait.jpg)
+
+![](https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge06/original-plate-11.jpg)
+
+![](https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge03/original-plate-27.jpg)
+
+:::
+
+<hr>
+
+
+<h1 style='text-align:center;display="inline"'>
+&nbsp;&nbsp;Tabulating DuBois&nbsp;&nbsp;
+</h1>
+![](man/icon.png){fig-align="center"}
+
+W.E.B. DuBois was a trailblazer in many ways, and is known for his use of data visualisation to challenge the racism of the early 20th century.
+
+DuBois' work makes me think of contrast, both in its topic and style. It contrasts the lives of white and black Americans in his day. It is obviously hand-drawn, yet still meticulously neat. It is immediately familiar in its basic geometry, but subverts expectations as the shapes loop, spiral and fan.
+
+DuBois can teach us about race in the 20th century, but he can also teach us to play with the expectations of the media with which we present data to tell more impactful stories.
+
+### The DuBois Challenge
+
+The DuBois Challenge is described by Anthony Starks in his [#DuBois Challenge Write-up](https://nightingaledvs.com/the-dubois-challenge/):
+
+> In February 2021, people on Twitter were challenged to re-create the historical data visualizations of W.E.B. Du Bois. The goal of the challenge was to celebrate his data visualization legacy by recreating the visualizations showcased at the 1900 Paris Exposition using modern tools.
+
+Many folks submitted their attempts, often realising (as I did!) that re-creating hand-drawn, centuries-old data visualisations are surprisingly difficult, even with modern tools! Many tools were used, such as Tableau, R, ggplot, Stata, PowerBI, decksh, etc, but the medium was always graphs.
+
+[![A collage of DuBois Challenge contributions, taken from <a href="https://nightingaledvs.com/the-dubois-challenge/">Nightingale Magazine</a>](https://i0.wp.com/nightingaledvs.com/wp-content/uploads/2022/01/Hero.png?w=974&ssl=1)](https://nightingaledvs.com/the-dubois-challenge/)
+
+### Purpose
+
+Recently, RStudio/Posit has championed the table as a data presentation format, including [two](https://www.rstudio.com/blog/announcing-the-2020-rstudio-table/) [past](https://www.rstudio.com/blog/rstudio-table-contest-2021/) table contests, a [current](https://www.rstudio.com/blog/rstudio-table-contest-2022/) table contest, and the launch of the [`{gt}` package](https://gt.rstudio.com/). While tables could be considered the stuffier, less exciting cousin of graphs or maps, these recent developments have shown that tables can hold their own against other data presentation media.
+
+The purpose of "Tabulating DuBois" is to effectively recreate the DuBois Challenge, but with tables as the medium. The key questions I'm looking to answer are:
+
+1.  Can DuBois' [style](https://github.com/ajstarks/dubois-data-portraits/blob/master/dubois-style.pdf) be effectively recreated in a tabular format?
+
+2.  Can the *spirit* of DuBois' original panels be recreated in a tabular format?
+
+3.  Can DuBois teach us any lessons of how to subvert the tabular format, similar to how he subverted the data visualisation/infographic?
+
+<h5 style='text-align:center'>To explore these ideas, please navigate to the [Table Studies](docs/gallery.qmd) Pane.</h5>
+
+<hr>
+
+:::{.callout-warning}
 # Language Notice
 Please note that the data used on this website was originally presented by DuBois in 1900, which means it includes the use of now-offensive terms such as "colored" and "negroes" to make reference to black Americans. These terms were used by many of the participants of the [2021 DuBois Challenge](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-02-16/readme.md) as the goal was to recreate DuBois' original plates as accurately as possible using modern tools. 
 

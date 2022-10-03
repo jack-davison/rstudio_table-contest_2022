@@ -8,8 +8,6 @@ To recreate the spirit of this visualisation, I created plots for each row which
 
 This was one of the easiest panels to translate to `{gt}`. In place of a legend, I added the unicode characters for a filled and empty bullet to the column labels.
 
-## Commentary
-
 ::: {.panel-tabset}
 
 # Table

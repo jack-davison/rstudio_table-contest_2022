@@ -1,0 +1,98 @@
+---
+title: "Occupations of Black and White Americans in Georgia."
+---
+
+<!-- This plate shows the percentages of black and white Americans employed in different industries. One of the more striking data insights is the much greater proportion of black Americans employed as domestic servants when compared to white Americans. -->
+
+<!-- This is one of DuBois' more striking graphs in appearance, with its "fan-like" shape. You can almost think of it like a pie chart with some wedges cut out. I personally found this such a unique geometry that I chose it as [my contribution](https://twitter.com/JDavison_/status/1361630455519444996) of the DuBois Data Challenge in 2021. -->
+
+<!-- Sadly, this is quite a challenging geometry to transform into a tabular format. What I wanted to capture was the double comparison it codifies --- the white percentage vs. the black percentage, but also the individual industry vs the other industries. I also wanted to capture the symmetry of the plate, and the way the plate has rotational symmetry rather than being reflected along a horizontal line (e.g., the red panels are opposite each other, creating a hourglass shape, rather than both being on the left or right of their respective wedge). -->
+
+<!-- To try to capture the feel of all of this, I expressed it as what I might call "duelling bars"^[Please let me know if there is already a term for this!] --- effectively two in-line bar charts where `x = 0` is at opposite sides and `x = 100` meet in the middle. It is the opposite of how a pyramid population chart looks, where `x = 0` is in the middle. -->
+
+::: {.panel-tabset}
+
+# Table
+
+```{r, ref.label=c('furnitureCode')}
+#| label: furnitureTbl
+#| echo: false
+```
+
+# Original
+
+![](https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge07/original-plate-25.jpg)
+
+# Code
+
+```{r}
+#| label: furnitureCode
+#| eval: false
+
+library(tidyverse)
+library(gt)
+
+furniture <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-16/furniture.csv')
+
+tbl_dat <- 
+  furniture |>
+  mutate(x = `Houshold Value (Dollars)`,
+         `Houshold Value (Dollars)` = vec_fmt_currency(`Houshold Value (Dollars)`),
+         x = x / min(x),
+         x = scales::rescale(x, c(1, 30), from = range(x))) |>
+  mutate(x = floor(x)) |>
+  right_join(tibble(x = 1:30)) |>
+  crossing(tibble(y = 1:30)) |>
+  filter(y <= x) |>
+  arrange(y) |>
+  mutate(`Houshold Value (Dollars)` = if_else(x == y,
+                                              `Houshold Value (Dollars)`,
+                                              "&nbsp;")) |>
+  drop_na(Year) |>
+  select(-x) |>
+  pivot_wider(names_from = Year,
+              values_from = `Houshold Value (Dollars)`) |>
+  unnest(everything()) |>
+  distinct() |>
+  select(-y)
+
+gt(tbl_dat) |> 
+  gtExtras::gt_theme_538() |>
+  cols_align("center") |> 
+  sub_missing(missing_text = "") |> 
+  tab_style(
+    cell_fill(color = "#d5a9a0"),
+    cells_body(1, length(na.omit(tbl_dat[,1][[1]])))
+  ) |> 
+  tab_style(
+    cell_fill(color = "#b0aebc"),
+    cells_body(2, 1:length(na.omit(tbl_dat[,2][[1]])))
+  ) |> 
+  tab_style(
+    cell_fill(color = "#baa28a"),
+    cells_body(3, 1:length(na.omit(tbl_dat[,3][[1]])))
+  ) |> 
+  tab_style(
+    cell_fill(color = "#d1a138"),
+    cells_body(4, 1:length(na.omit(tbl_dat[,4][[1]])))
+  ) |> 
+  tab_style(
+    cell_fill(color = "#eae9e6"),
+    cells_body(5, 1:length(na.omit(tbl_dat[,5][[1]])))
+  ) |> 
+  tab_style(
+    list(
+      cell_fill(color = "#9e3844"),
+      cell_text(color = "white")
+    ),
+    cells_body(6, 1:length(na.omit(tbl_dat[,6][[1]])))
+  ) |> 
+  fmt_markdown(everything()) |> 
+  cols_width(everything() ~ px(120)) |> 
+  tab_header(
+    toupper("Assessed value of houshold and kitchen furniture owned by black americans in Georgia.")
+  ) |> 
+  tab_options(heading.align = "center")
+```
+
+:::

@@ -25,5 +25,11 @@
   },
   "docs/challenges/city_rural.qmd": {
     "city_rural.html": "e4607ccf"
+  },
+  "docs/challenges/furniture.qmd": {
+    "furniture.html": "5b00f31b"
+  },
+  "docs/challenges/income.qmd": {
+    "income.html": "02631f6c"
   }
 }
