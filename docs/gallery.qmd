@@ -15,6 +15,22 @@ description: |
   A gallery of example documents, websites, books, and presentations created with Quarto.
 ---
 
+# DuBois Table Studies
+
+Select one of DuBois' original plates below to see the data tabulated using `{gt}`. Each of the studies below has four components:
+
+-  A `{gt}` table created using DuBois' data,
+
+-  A larger version of DuBois' original plate,
+
+-  The code used to reproducibly create the `{gt}` table, and
+
+-  Some commentary around how the graph on the plate was translated into a tabular medium.
+
+Many of the tabulated versions of the data rely on the `{ggplot2}` package to create simple in-line graphical depictions of the data. Furthermore, `gtExtras::gt_theme_538()` pulls a lot of weight when it comes to setting the table theme as it reflects DuBois' sans-serif, all-caps printed typography.
+
+<br>
+
 ::: {#gallery .column-page}
 :::
 

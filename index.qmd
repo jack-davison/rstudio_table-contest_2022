@@ -51,7 +51,7 @@ The purpose of "Tabulating DuBois" is to effectively recreate the DuBois Challen
 
 3.  Can DuBois teach us any lessons of how to subvert the tabular format, similar to how he subverted the data visualisation/infographic?
 
-<h5 style='text-align:center'>To explore these ideas, please navigate to the [Table Studies](docs/gallery.qmd) Pane.</h5>
+<h5 style='text-align:center'>To explore these ideas, please navigate to the [Tables](docs/gallery.qmd) Pane.</h5>
 
 <hr>
 

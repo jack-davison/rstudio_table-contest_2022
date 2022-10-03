@@ -1,7 +1,4 @@
-- category: Challenges
-  description: |
-    Table outputs for the challenges.
-  tiles:
+- tiles:
     - title: Georgia Population
       subtitle: Original Plate 07
       href: ./challenges/georgia_pop.qmd

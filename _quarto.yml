@@ -3,14 +3,13 @@ project:
 
 website:
   title: "Tabulating DuBois"
-  body-footer: "A submission for the RStudio/Posit Table Contest 2022."
   navbar:
     logo: man/logo.png
     pinned: true
     background: "#e5dcce"
     foreground: "black"
     left:
-      - text: Table Studies
+      - text: Tables
         href: docs/gallery.qmd
       - sidebar:dubois
     right:

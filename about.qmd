@@ -1,9 +1,34 @@
 ---
-title: "About"
+title: "Jack Davison"
+about:
+  template: trestles
+  image: man/selfie-zoomed.jpg
+  links:
+    - icon: twitter
+      text: twitter
+      href: https://twitter.com/JDavison_
+    - icon: github
+      text: github
+      href: https://github.com/jack-davison
+    - icon: linkedin
+      text: linkedin
+      href: https://www.linkedin.com/in/jack-davison/
 ---
 
-About this site
+Jack Davison is an Air Quality Data Analyst based in the United Kingdom. He has interest in data visualisation and package development, as well as teaching R/data analysis to scientific and non-programmer audiences.
 
-```{r}
-1 + 1
-```
+## Education
+
+University of York | York, United Kingdom
+
+-  PhD in Atmospheric Chemistry | 2022
+
+-  MChem in Chemistry | 2018
+
+## Other Work
+
+-  [Using gt, gtExtras and openair to present air quality monitoring data](https://jack-davison.quarto.pub/gt-openair/) | Honourable Mention, RStudio Table Contest 2021
+
+-  [{openairmaps}](https://github.com/davidcarslaw/openairmaps) | Package for air quality directional analysis
+
+-  [My #TidyTuesday repo](https://github.com/jack-davison/TidyTuesday) | Weekly data visualisation challenge
