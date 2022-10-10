@@ -1,6 +1,12 @@
 ---
 title: "Income and Expenditure of 150 Black Families in Atlanta, G.A., U.S.A."
+editor_options: 
+  chunk_output_type: console
 ---
+
+Of all of the plates presented for the DuBois Challenge, "Income and Expenditure..." is one of the busiest. Unlike the other plates, there are images --- both photographed and hand-drawn --- pictorially labelling the different bars. Interestingly, it also already looks quite a lot like a table, so my aim here was to recreate its structure in `{gt}` while taking advantage of some of the tools DuBois wouldn't have been able to recreate in his day.
+
+I really wanted to use DuBois' images as column headings, but I couldn't get that to mesh with the stacked bar charts DuBois used in the body of the graphic. Instead, I chose to carry over the *colours* of the original plate, but using them alongside the `data_color()` function to create a sort of heat-map instead. I think this captures the message of the plate --- particularly in the dark "Rent" and light "Other" categories --- but tells the story in a slightly different way.
 
 ::: {.panel-tabset}
 

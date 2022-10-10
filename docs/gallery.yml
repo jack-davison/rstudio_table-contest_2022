@@ -3,6 +3,10 @@
       subtitle: Original Plate 07
       href: ./challenges/georgia_pop.qmd
       thumbnail: https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge01/original-plate-07.jpg
+    - title: Birthplace and Migration
+      subtitle: Original Plate 08
+      href: ./challenges/location.qmd
+      thumbnail: https://raw.githubusercontent.com/ajstarks/dubois-data-portraits/master/challenge/challenge09/original-plate-08.jpg
     - title: Conjugal Condition
       subtitle: Original Plate 10
       href: ./challenges/conjugal.qmd

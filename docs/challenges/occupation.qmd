@@ -10,6 +10,8 @@ Sadly, this is quite a challenging geometry to transform into a tabular format. 
 
 To try to capture the feel of all of this, I expressed it as what I might call "duelling bars"^[Please let me know if there is already a term for this!] --- effectively two in-line bar charts where `x = 0` is at opposite sides and `x = 100` meet in the middle. It is the opposite of how a pyramid population chart looks, where `x = 0` is in the middle.
 
+The end result is a lot less visually interesting than than the original plate, and I'd argue the weakest recreation. I'd be interested to see if others could interpret it more faithfully.
+
 ::: {.panel-tabset}
 
 # Table
@@ -32,7 +34,7 @@ To try to capture the feel of all of this, I expressed it as what I might call "
 library(tidyverse)
 library(gt)
 
-
+# read data
 occupation <-
   readr::read_csv(
     'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-16/occupation.csv'
@@ -48,9 +50,11 @@ occupation <-
     )
   )) |>
   arrange(Occupation) |>
+  # language
   mutate(Group = case_when(Group == "Negroes" ~ "Black",
                            Group == "Whites" ~ "White"))
 
+# function to create bars
 plot_bars <- function(data, color) {
   data |>
     mutate(Percentage = if_else(Group == "White", Percentage * -1, Percentage)) |>
@@ -64,15 +68,20 @@ plot_bars <- function(data, color) {
     scale_x_continuous(breaks = c(c(0, 25, 50, 75, 100), c(0, 25, 50, 75, 100) * -1))
 }
 
+# plot bars
 plots <-
   occupation |>
   group_split(Occupation) |>
   map2(.y = c("#b92e43", "#edc120", "#6a78a5", "#e0d5c3", "#a69077"),
        plot_bars)
 
-occupation |>
+# prep data for table
+tbl_data <- 
+  occupation |>
+  # reshape
   pivot_wider(names_from = Group, values_from = Percentage) |>
   mutate(plots = NA, .after = Black) |>
+  # add HTML
   mutate(
     Occupation = toupper(Occupation),
     Occupation = str_replace(
@@ -98,7 +107,10 @@ occupation |>
       "PROFESSIONS",
       "<b style='color:#a69077'>PROFESSIONS</b>"
     )
-  ) |>
+  )
+
+# make table
+tbl_data |> 
   gt() |>
   gtExtras::gt_theme_538() |>
   cols_label(plots = "") |>

@@ -12,6 +12,7 @@ website:
       - text: Tables
         href: docs/gallery.qmd
       - sidebar:dubois
+      - sidebar:gt
     right:
       - href: about.qmd
         text: About
@@ -29,19 +30,34 @@ website:
       - text: W.E.B. Du Bois’ Visionary Infographics Come Together for the First Time in Full Color (Smithsonian)
         href: https://www.smithsonianmag.com/history/first-time-together-and-color-book-displays-web-du-bois-visionary-infographics-180970826/
       - text: The DuBois Challenge (Nightingale)
-        href: https://nightingaledvs.com/the-dubois-challenge/ 
+        href: https://nightingaledvs.com/the-dubois-challenge/
         
-    - id: other
-      title: "About"
+    - id: gt
+      title: "{gt} Resources"
       background: light
       contents:
-      - text: about.qmd
-    
+      - section: "{gt}"
+      - text: "Website"
+        href: "https://gt.rstudio.com/index.html"
+      - text: "GitHub"
+        href: "https://github.com/rstudio/gt/"
+      - section: "{gtExtras}"
+      - text: "Website"
+        href: "https://jthomasmock.github.io/gtExtras/"
+      - text: "GitHub"
+        href: "https://github.com/jthomasmock/gtExtras/"
+      - section: "{gtsummary}"
+      - text: "Website"
+        href: "https://www.danieldsjoberg.com/gtsummary/"
+      - text: "GitHub"
+        href: "https://github.com/ddsjoberg/gtsummary"
+
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: false
+    code-link: true
 
 execute:
   message: false

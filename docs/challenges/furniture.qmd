@@ -1,14 +1,12 @@
 ---
-title: "Occupations of Black and White Americans in Georgia."
+title: "Assessed value of household and kitchen furniture owned by black Americans in Georgia."
 ---
 
-<!-- This plate shows the percentages of black and white Americans employed in different industries. One of the more striking data insights is the much greater proportion of black Americans employed as domestic servants when compared to white Americans. -->
+This plate is similar to the [City vs. Rural](city_rural.qmd) plate in that it subverts the typical bar chart through turning it into a spiral, capturing the eye and hammering home the message. In this case, the take-home message is the increase in value of the personal possessions of Black Americans by a factor of almost 68 between 1875 and 1899.
 
-<!-- This is one of DuBois' more striking graphs in appearance, with its "fan-like" shape. You can almost think of it like a pie chart with some wedges cut out. I personally found this such a unique geometry that I chose it as [my contribution](https://twitter.com/JDavison_/status/1361630455519444996) of the DuBois Data Challenge in 2021. -->
+This could have been presented in a similar way to the [City vs. Rural](city_rural.qmd) table, using a "row overflow" method of data visualisation. But, to try something different, I instead wanted to capture the feeling of having to follow those bars from their origins, forcing you to realise their true differences in magnitude. Instead of following a spiralling bar, however, I wanted to force users to scroll. I'm pleased with the way the table works --- the difference between 1875 and 1899 is really highlighted (on my monitor you can't actually see both at once due to the length of the table!).
 
-<!-- Sadly, this is quite a challenging geometry to transform into a tabular format. What I wanted to capture was the double comparison it codifies --- the white percentage vs. the black percentage, but also the individual industry vs the other industries. I also wanted to capture the symmetry of the plate, and the way the plate has rotational symmetry rather than being reflected along a horizontal line (e.g., the red panels are opposite each other, creating a hourglass shape, rather than both being on the left or right of their respective wedge). -->
-
-<!-- To try to capture the feel of all of this, I expressed it as what I might call "duelling bars"^[Please let me know if there is already a term for this!] --- effectively two in-line bar charts where `x = 0` is at opposite sides and `x = 100` meet in the middle. It is the opposite of how a pyramid population chart looks, where `x = 0` is in the middle. -->
+This required some awkward hacks to appear as I wanted in the `{gt}` table, including some very unfamiliar data frame manipulations with `{dplyr}`, but it looks exactly as I wanted it to in the end.
 
 ::: {.panel-tabset}
 
@@ -32,34 +30,43 @@ title: "Occupations of Black and White Americans in Georgia."
 library(tidyverse)
 library(gt)
 
+# read data
 furniture <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-16/furniture.csv')
 
+# manipulate data
 tbl_dat <- 
   furniture |>
+  # rescale dollars to be whole numbers
   mutate(x = `Houshold Value (Dollars)`,
          `Houshold Value (Dollars)` = vec_fmt_currency(`Houshold Value (Dollars)`),
          x = x / min(x),
          x = scales::rescale(x, c(1, 30), from = range(x))) |>
   mutate(x = floor(x)) |>
+  # get all values, 1 to 30
   right_join(tibble(x = 1:30)) |>
   crossing(tibble(y = 1:30)) |>
+  # only have values up to the relevant row (e.g., 10 rows for `1880`)
   filter(y <= x) |>
   arrange(y) |>
+  # where row is less than target (1:9 for 1880), just put a space in
   mutate(`Houshold Value (Dollars)` = if_else(x == y,
                                               `Houshold Value (Dollars)`,
                                               "&nbsp;")) |>
   drop_na(Year) |>
   select(-x) |>
+  # reshape
   pivot_wider(names_from = Year,
               values_from = `Houshold Value (Dollars)`) |>
   unnest(everything()) |>
   distinct() |>
   select(-y)
 
+# make table!
 gt(tbl_dat) |> 
   gtExtras::gt_theme_538() |>
   cols_align("center") |> 
-  sub_missing(missing_text = "") |> 
+  sub_missing(missing_text = "") |>
+  # colour the cells to appear as a bar chart
   tab_style(
     cell_fill(color = "#d5a9a0"),
     cells_body(1, length(na.omit(tbl_dat[,1][[1]])))

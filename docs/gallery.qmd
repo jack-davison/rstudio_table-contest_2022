@@ -8,11 +8,11 @@ search: false
 execute:
   echo: false
 listing:
-  - id: gallery
+  - id: galler y
     template: gallery.ejs
     contents: gallery.yml
 description: |
-  A gallery of example documents, websites, books, and presentations created with Quarto.
+  A gallery of DuBois inspired tables.
 ---
 
 # DuBois Table Studies

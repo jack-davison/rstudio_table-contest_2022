@@ -6,7 +6,7 @@ This plate shows the marital status of black Americans, compared to that of Germ
 
 Unlike many of DuBois' graphs, which contain many stylistic elements uncommon in modern data visualisations like spiralling bars and fan charts, this plate shows something quite straightforward. Stacked bars are a very common visualisation, and the horizontal iteration of them is already quite tabular!
 
-Translating to `{gt}` was not too difficult! I used colour in the column labels in place of a legend to keep things simple and elegant, and the "groupname_col" argument to collect the different age bins together. DuBois effectively used footnotes to note that the age ranges weren't quite the same for the black Americans, so I used `tab_footnote()` to display the same information.
+Translating to `{gt}` was not too difficult. I used colour in the column labels in place of a legend to keep things simple and elegant, and the "groupname_col" argument to collect the different age bins together. DuBois effectively used footnotes to note that the age ranges weren't quite the same for the black Americans, so I used `tab_footnote()` to display the same information.
 
 ::: {.panel-tabset}
 
@@ -30,20 +30,21 @@ Translating to `{gt}` was not too difficult! I used colour in the column labels 
 library(tidyverse)
 library(gt)
 
+# read data
 conjugal <-
   readr::read_csv(
     'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-16/conjugal.csv'
   ) |> 
+  # language
   mutate(Population = str_replace_all(Population, "Negroes", "Black America"),
          Population = factor(Population, c("Germany", "Black America")))
 
+# function to create plot
 make_bar <- function(data) {
   data |>
     pivot_longer(-c(Population:Age)) |>
     ggplot(aes(y = "", x = value)) +
     geom_col(aes(fill = name), color = "white", size = 20) +
-    # geom_text(aes(label = if_else(value >= 20, as.character(value), "")),
-    #           position = position_stack(vjust = .5), size = 30) +
     scale_fill_manual(
       values = c(
         "Single" = "#953e45",
@@ -56,6 +57,7 @@ make_bar <- function(data) {
     theme(legend.position = "none")
 }
 
+# create plots
 plots <- conjugal |>
   group_split(Age, Population) |>
   map(make_bar)
@@ -64,9 +66,11 @@ conjugal |>
   mutate(plot = NA,
          Age = paste("Age", Age)) |>
   relocate(Age) |>
+  # use "Age" as group name
   gt::gt(groupname_col = "Age") |>
   gtExtras::gt_theme_538() |>
   tab_header(toupper("Conjugal Condition.")) |>
+  # footnotes, as in original plate
   tab_footnote("45-69",
                gt::cells_body(Population, 4)) |>
   tab_footnote("65 AND OVER",
@@ -77,6 +81,7 @@ conjugal |>
   cols_width(plot ~ px(200),
              Population ~ px(110),
              Single:`Divorced and Widowed` ~ px(90)) |>
+  # using colour as a "legend"
   cols_label(
     "Divorced and Widowed" = html(
       "<b style='color:#647867'>W</b>idowed/<br><b style='color:#647867'>D</b>ivorced"
@@ -87,6 +92,7 @@ conjugal |>
     "Married" = html("<b style='color:#daac2e'>M</b>arried")
   ) |>
   cols_align("left", Population) |>
+  # adding plots
   text_transform(cells_body(plot),
                  function(x) {
                    ggplot_image(plots, height = px(20), aspect_ratio = 8)
@@ -95,6 +101,7 @@ conjugal |>
                  function(x) {
                    toupper(x)
                  }) |>
+  # format footnotes, adding some space between them and the table
   tab_options(
     heading.align = "center",
     table_body.border.bottom.width = 10,

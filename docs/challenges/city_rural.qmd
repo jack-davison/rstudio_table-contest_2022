@@ -6,7 +6,7 @@ This plate shows the number of black Americans who live in urban and rural envir
 
 This infographic is unusual in appearance, and [much has been said](https://www.smithsonianmag.com/history/first-time-together-and-color-book-displays-web-du-bois-visionary-infographics-180970826/) about its almost modernist style. While it starts as a regular bar chart with the green line representing large cities, it suddenly juts off at an angle, culminating in an absurdly large spiralling bar. The message I take from this is that the difference between the categories is so stark that it defies the traditional structure of the medium (in this case, the bar chart). This defiance is what I want to carry over to the tabular format.
 
-To express this idea in a `{gt}` table, I've used a pretty typical in-line bar plot, but allowed it to spill over onto rows below. I think this nicely presents the message of "this value is almost comically large compared to the others" nicely. The mathematical transformations to get this result were interesting to write out, and made good use of the lesser known `dplyr::uncount()` function.
+To express this idea in a `{gt}` table, I've used a pretty typical in-line bar plot, but allowed it to spill over onto rows below. I think this nicely presents the message of "this value is almost comically large compared to the others" nicely. The mathematical transformations to get this result were interesting to write, and made good use of the lesser known `tidyr::uncount()` function.
 
 ::: {.panel-tabset}
 
@@ -30,27 +30,30 @@ To express this idea in a `{gt}` table, I've used a pretty typical in-line bar p
 library(tidyverse)
 library(gt)
 
+# read data
 city_rural <-
   readr::read_csv(
     'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-16/city_rural.csv'
   )
 
+# format for table
 tbl_data <-
   city_rural |>
   mutate(
     Category = fct_inorder(Category),
     n = Population / 100000,
-    n_ceil = ceiling(n)
+    n_ceil = ceiling(n) # n_ceil = number of "100000" chunks
   ) |>
   arrange(Category) |>
-  uncount(n_ceil) |>
+  uncount(n_ceil) |> # uncount - get a row per 100000
   mutate(val = if_else(n < 1, n * 100000, 100000)) |>
   group_by(Category) |>
   mutate(rn = row_number(),
          val = if_else(rn == max(rn),
                        100000 * (n - floor(n)),
-                       val))
+                       val)) # final row per group should be remainder of Population 
 
+# function to create bars
 plot_bar <- function(data, color) {
   data |>
     ggplot(aes(y = "", x = val)) +
@@ -59,15 +62,17 @@ plot_bar <- function(data, color) {
     theme_void()
 }
 
+# create plots
 plots <-
   tbl_data |>
   group_by(Category, rn) |>
   group_split() |>
-  map2(.y = c("#5f7767", "#6276ab", "#e1b323", rep("#b82a40", nrow(tbl_data) -
-                                                     3)),
+  map2(.y = c("#5f7767", "#6276ab", "#e1b323", rep("#b82a40", nrow(tbl_data) - 3)),
        plot_bar)
 
+# create table
 tbl_data |>
+  # drop repeat values
   mutate(
     Category = if_else(rn == 1, as.character(Category), ""),
     Population = if_else(rn == 1, as.character(Population), "")
