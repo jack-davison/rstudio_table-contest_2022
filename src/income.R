@@ -41,12 +41,12 @@ gt(tbl_dat, rowname_col = "social") |>
   
   # labels
   cols_label(
-    Class = html(str_c(local_image("../../man/silver_dollar.jpg", height = px(100))), "<br>Annual Income<br>(Actual Average)"),
-    Rent = html(str_c("Rent<br>", local_image("../../man/rent.png", height = 100))),
-    Food = html(str_c("Food<br>", local_image("../../man/food.png", height = 100))),
-    Clothes = html(str_c("Clothes<br>", local_image("../../man/clothes.png", height = 100))),
-    Tax = html(str_c("Tax<br>", local_image("../../man/tax.png", height = 100))),
-    Other = html(str_c("Other<br>", local_image("../../man/other.png", height = 100)))
+    Class = html(str_c(local_image("man/silver_dollar.jpg", height = px(100))), "<br>Annual Income<br>(Actual Average)"),
+    Rent = html(str_c("Rent<br>", local_image("man/rent.png", height = 100))),
+    Food = html(str_c("Food<br>", local_image("man/food.png", height = 100))),
+    Clothes = html(str_c("Clothes<br>", local_image("man/clothes.png", height = 100))),
+    Tax = html(str_c("Tax<br>", local_image("man/tax.png", height = 100))),
+    Other = html(str_c("Other<br>", local_image("man/other.png", height = 100)))
   ) |>
   
   fmt_percent(`Rent`:`Other`, decimals = 1, scale_values = FALSE) |>
@@ -88,3 +88,4 @@ gt(tbl_dat, rowname_col = "social") |>
                  cell_text(size = 0)),
             cells_body(2:6, 2)) |> 
   fmt_markdown(columns = Class)
+
