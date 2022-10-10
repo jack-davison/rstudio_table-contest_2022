@@ -53,6 +53,7 @@ tbl_data |>
   mutate(plots = NA) |>
   gt() |>
   gtExtras::gt_theme_538() |>
+  cols_label("plots" = "") |> 
   tab_header(html("URBAN AND RURAL POPULATION.<br>1890.")) |>
   tab_options(heading.align = "center") |>
   text_transform(cells_body(plots),

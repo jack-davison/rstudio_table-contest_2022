@@ -15,6 +15,12 @@ description: |
   A gallery of DuBois inspired tables.
 ---
 
+```{r}
+#| include: false
+library(gtExtras)
+```
+
+
 # DuBois Table Studies
 
 Select one of DuBois' original plates below to see the data tabulated using `{gt}`. Each of the studies below has four components:
