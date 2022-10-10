@@ -1,12 +1,18 @@
 <a href="https://rpubs.com/JackDavison/gt-openair"><div align="center"><img width="800" src="./man/banner.png"/></div></a>
-<h1 align="center">
-Tabulating DuBois
-</h1>
 <h2 align="center">
- RStudio Table Contest 2022 Entry: <a href="https://jack-davison.quarto.pub/tabulating-dubois/">[View Submission]</a>
+ RStudio Table Contest 2022 Submission
 </h2>
+<h1 align="center">
+"<a href="https://jack-davison.quarto.pub/tabulating-dubois/">Tabulating DuBois</a>"<br>Recreating Historical Data Visualisations with <code>gt</code>
+</h1>
+
+<div align="center"><b><a href="https://jack-davison.quarto.pub/tabulating-dubois/">[View Submission]</a></b></div>
+
+<div align="center"><a href="https://rstudio.cloud/content/4694745">[Go to RStudio Cloud Project]</a></div>
 
 <div align = "center">
+
+## 📆 W.E.B. DuBois
 
 W.E.B. DuBois was a trailblazer in many ways, and is known for his use of data visualisation to challenge the racism of the early 20th century.
 
