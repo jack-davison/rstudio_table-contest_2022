@@ -16,6 +16,10 @@ website:
     right:
       - href: about.qmd
         text: About
+      - icon: github
+        href: https://github.com/jack-davison/rstudio_table-contest_2022
+        aria-label: GitHub
+
 
   sidebar:
     - id: dubois 
